@@ -155,7 +155,7 @@ void setup(){
 }
 
 void loop(){
-  int solenoidState;
+  
   // Send new readings to database
   if (Firebase.ready() && (millis() - sendDataPrevMillis > timerDelay || sendDataPrevMillis == 0)){
     sendDataPrevMillis = millis();
@@ -170,7 +170,7 @@ void loop(){
     json.set("/timeStamp", timestamp);
     //json.set("/solenoidStatus", 0);
     Serial.printf("Set json... %s\n", Firebase.RTDB.setJSON(&fbdo, parentPath, &json) ? "ok" : fbdo.errorReason().c_str());
-    
+    int solenoidState;
     if(Firebase.RTDB.getJSON(&fbdo, parentPath + "/solenoidStatus", &solenoidState)){
       Serial.print("Solenoid state is: ");
       Serial.println(solenoidState);
